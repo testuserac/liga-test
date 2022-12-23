@@ -36,13 +36,13 @@ http {
 
         location ^~ /jenkins/ {
            #try_files $uri =404;
-           #fastcgi_pass 192.168.88.40:80;
+           #fastcgi_pass {{ ansible_default_ipv4.address }}:80;
            proxy_pass http://{{ ansible_default_ipv4.address }}:8080/login?from=%2F;
-           #proxy_redirect http://192.168.88.40:8000 /;
-           #proxy_set_header   Host             $host;
-           #proxy_set_header   X-Real-IP        $remote_addr;
-           #proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;           
-           #proxy_max_temp_file_size 0;
+           #proxy_redirect http://{{ ansible_default_ipv4.address }}:8000 /;
+           proxy_set_header   Host             $host;
+           proxy_set_header   X-Real-IP        $remote_addr;
+           proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;           
+           proxy_max_temp_file_size 0;
 
            #client_max_body_size       10m;
            #client_body_buffer_size    128k;
@@ -56,12 +56,12 @@ http {
 
         location ^~ /adcm/ {
            #try_files $uri =404;
-           #fastcgi_pass 192.168.88.40:80;
+           #fastcgi_pass {{ ansible_default_ipv4.address }}:80;
            proxy_pass http://{{ ansible_default_ipv4.address }}:8000/login;
-           #proxy_redirect http://192.168.88.40:8000 /;
-           #proxy_set_header Host $host;
-           #proxy_set_header X-Forwarded_For $proxy_add_x_forwarded_for;
-           #proxy_set_header X-Real-IP $remote_addr;
+           #proxy_redirect http://{{ ansible_default_ipv4.address }}:8000 /;
+           proxy_set_header Host $host;
+           proxy_set_header X-Forwarded_For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Real-IP $remote_addr;
           }
 
 
